@@ -1,0 +1,313 @@
+---
+title: "BSTA 6100 Lab 0: Introduction to R and Quarto"
+author: "Nicholas J. Seewald, Ph.D."
+date: 09/03/2024
+format:
+  html:
+    theme: lumen
+    toc: true
+---
+
+# Learning Objectives
+
+## R Learning Objectives
+1. Become familiar with the RStudio interface 
+1. Understand key components of a Quarto document
+1. Learn how to use R to do basic calculations
+1. Learn how to import data into R and name objects
+1. Learn how to subset data
+
+
+# Lab Tutorial
+
+## Basics of RStudio
+![R Studio Screenshot](assets/images/rstudio_annotated.jpg)
+
+## Clarifying Terminology
+
+- **R** is a *statistical computing environment* that's designed for manipulating data, generating plots, and performing analyses. It's also a programming language. You'll be *using R* this semester.
+- **RStudio** is an *integrated development environment (IDE)* for R. It's an interface that makes working with R easier. You use R inside of RStudio. If R is ice cream, RStudio is the cone or cup.
+- **Quarto** is a *scientific and technical publishing system*. Quarto lets you to write analysis reports that combine R code, R output (plots, analysis results, etc.) and text in one document. This lab document is a Quarto document!
+  - Side note: Quarto is very flexible and can be used with different programming languages (e.g., Python) in different IDEs (e.g., Jupyter). The document structure translates across all of these!
+  
+## Quarto
+
+Throughout the course, we'll be using Quarto to prepare lab reports. 
+
+Quarto runs code contained in "chunks". A chunk looks like this:
+```{r}
+#| label: hello-world
+
+print("Hello world!")
+
+```
+
+Notice that the code, `print("Hello world!")` is contained between three backticks (below the esc key on a US English keyboard; the same key as the tilde) and the first set of backticks ends with `{r}`. This is how Quarto knows where your chunks start and stop.
+
+You can run the code inside a single chunk by clicking the green "play" button in the upper right corner of the chunk. It's usually a good idea to click the "Run All Chunks Above" button immediately to the left of the play button first. So you should click Run All Chunks Above, then the play button.
+
+If you can't find the play button, just highlight the code you want to run and click the Run button in the top right corner of the editor pane.
+
+When you click the **Render** button in RStudio, a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+### Tips for Quarto
+1. **Render and render often**: Frequently knitting your document will help you make sure that all your code works and that the document looks the way you want. You might even check the "Render on Save" button to help with this.
+1. **Don't be afraid to experiment**: Nobody gets things exactly right the first time, and we all forget how things work sometimes. Keep trying, and you'll eventually get what you want! Your computer won't explode if you get an error, so don't be afraid!
+1. **Use your resources**: Resources like [Quarto's reference manual](https://quarto.org/docs/reference/) and even Google are your friends! You should feel empowered to learn and troubleshoot errors on your own.
+1. **Formatting**: Text in Quarto is written in a syntax called [Markdown](https://quarto.org/docs/authoring/markdown-basics.html). You can make text **bold** by surrounding it with two asterisks (`**`) and *italic* by surrounding it with one asterisk (`*`). You can make text `look like code` by surrounding it with single backticks.
+
+
+## R Basics
+
+### R is a calculator
+At it's most basic, R is a fancy calculator. 
+
+Remember, you can run the code in this chunk by clicking the green "play" button in the upper right corner of the chunk. 
+```{r}
+#| label: calculator-example
+
+5 * 7
+```
+When you run the chunk, you'll see a `[1]` before the output of `35`. This is R telling you that the result is a *vector* and the `[1]` is just a helpful flag to help you keep the index straight. 
+
+- *SIDE NOTE:* R is "1-indexed" -- the first element is always the "1"th element. This is different from some other programming languages like Python, which is 0-indexed.
+
+All of the symbols you think you'd use to do math work: `+` for addition, `-` for subtraction, `*` for multiplication, `/` for division, `^` for exponentiation.
+
+**Try it yourself!**
+In the chunk below, compute 50 divided by 9. You'll notice the chunk contains the text `# Write code here!`. This is called a "comment" -- it's not code that R runs, it's just there to explain your code. Feel free to delete and replace it, or start a new line and type there. See what happens!
+
+```{r}
+#| label: tryIt-calculator
+#| error: true
+
+# Write code here! This text is a comment, so it's not run by R. Replace it with code to compute 50 divided by 9.
+```
+
+### R Function Syntax
+We'll be using R primarily through the use of *functions*. A function generally looks something like this: 
+
+```{r}
+#| label: generic-function
+#| eval: false
+
+function.name(argument1, argument2, ...)
+```
+
+Notice that we have the name of the function, followed immediately by an open parenthesis `(` without a space, then a sequence of *arguments* to the function, separated by commas `,`, then a close parenthesis `)`. 
+
+## How to find help in R
+R has built-in "documentation" for every function. If you want to find that documentation, you can Google it, but that takes too long. So it's better to use R's built in help! In the R console, just type a question mark `?` followed by the name of the function you want help with, then hit enter. For example, `?hist` will bring up the documentation for the `hist()` function. 
+
+At the end of the help file you *may* find an example of how to use the function. These examples are generally super helpful! You can directly run them using the `example()` function -- e.g., `example(hist)`.
+
+The most useful feature of help is a list of a function's arguments and what they do.
+
+### R "Assignment" Syntax
+
+Often, we want R to remember the results of a calculation so that we can use it later. We can give the result of some code a name by **assigning** it to something.
+
+```{r}
+#| label: assignment-example
+x <- 36 / 6
+```
+
+We read that code as "x *gets* 36 / 6". The arrow is made using the less-than symbol (`<`, shift + comma on a US English keyboard) and a hyphen.
+
+Now, we've stored the result as `x`, and R will remember that `x` is 6. You can see in the environment pane in R Studio (top right) that there's now a "value" called `x` and it's 6. You can also access the value of `x` by typing `x` into R. Check it out:
+```{r}
+#| label: x
+x
+```
+
+**NOTE:** R is "case-sensitive", which means that upper-case letters are *different than* lower-case letters. Notice what happens when we ask R for the value of `X`:
+
+```{r}
+#| label: X
+#| error: true
+X
+```
+
+When giving things names in R, you can only use a combination of letters, numbers, periods, and underscores, and the names have to start with a letter or a period. People tend to use underscores or periods instead of spaces.
+
+Watch what happens when you try to assign something to a "bad" name:
+```{r}
+#| label: bad-name-1
+#| error: true
+
+tik tok <- 12
+```
+
+```{r}
+#| label: bad-name-2
+#| error: true
+
+4eva <- 4 * 2 
+```
+
+```{r}
+#| label: bad-name-3
+#| error: true
+
+_hi_mom <- 5^2
+```
+
+The errors saying "unexpected symbols" or "unexpected input" are R's way of telling you that these names are not allowed, and that you should use a different name. Here's how we'd correct these:
+
+```{r}
+#| label: good-names
+
+tiktok <- 12
+forever <- 4 * 2
+dear_mother <- 5^2
+```
+
+You *can* use non-syntactic names in R, but it becomes a HUGE pain. So don't.
+
+## CSV files: a common way to store data
+
+CSV stands for "comma separated values" and is a commonly used file type for storing data. 
+Open the file "penguins.csv" from the files pane (lower right) to see what a .csv file looks like:
+
+![](assets/images/csv-demo.jpg)
+
+Each row of the file is an "observation" or "case", and consists of one or more variables whose *values* are *separated* by *commas* (hey, look at that). The first row contains the names of the variables contained in the file.
+
+### Palmer Penguins Data
+We're going to start by working with a data set with data on 333 penguins collected from 3 islands in the Palmer Archipeligo in Antarctica. Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php)
+and the [Palmer Station, Antarctica LTER](https://pal.lternet.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/), and the data were prepared by [Dr. Allison Horst](https://github.com/allisonhorst/palmerpenguins).
+
+![Artwork by @allison_horst](https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/man/figures/lter_penguins.png)
+
+We can **read** data into R using a function called `read.csv()`. The first argument to `read.csv()` is the name of a .csv file (here, `penguins.csv`), in quotes. We then store the results of `read.csv()` as an object called `penguins`.
+
+```{r}
+#| label: read-data
+penguins <- read.csv("penguins.csv", stringsAsFactors = TRUE)
+```
+
+Let's see what's in the data. We can peek at the first few (6, specifically) rows of the data using the `head()` function:
+```{r}
+#| label: head-Penguins
+head(penguins)
+```
+We read that line as "*head* of *penguins*". Remember that `penguins` is what we named our data set. We can see that `penguins` contains a number of *variables*, like `species`, `island`, and more. 
+
+| Variable name | Description |
+|:--------------|:------------|
+|`species`| Penguin species (Ad&eacute;lie, Chinstrap, and Gentoo) |
+|`island`| Island in Palmer Archipeligo, Antarctica, on which the penguin was observed (Biscoe, Dream, or Torgersen) |
+|`bill_length_mm`| A number denoting bill length (in millimeters) |
+|`bill_depth_mm`| A number denoting bill depth (in millimeters) |
+|`flipper_length_mm`| A whole number denoting flipper length (in millimeters) |
+|`body_mass_g`| A whole number denoting penguin body mass (in grams) |
+|`sex`| Penguin sex (female, male) |
+|`year`| Study year (2007, 2008, 2009) |
+
+We can also peek at the data using a function called `str()` (pronounced "stir", short for "structure"):
+
+```{r}
+#| label: str-Penguins
+str(penguins)
+```
+
+## Frequency Tables
+
+Let's start with the `species` variable. Is this a categorical or quantitative variable? How do you know?
+
+To make a frequency table of a categorical variable, we use the `table()` function:
+
+```{r}
+#| label: table
+table(penguins$species)
+```
+
+So, there are 119 Gentoo penguins in the data. 
+
+Notice that inside the table function, we have something that looks a little weird. We wrote `penguins$species`. This is how we tell R to use the `species` variable *inside the data frame* `penguins`. The dollar sign ($) tells R to look inside the data frame `penguins` for the column called `species`. 
+
+It's very important that you tell R *which data frame* the variable you're interested in is from. Let's see what happens when we don't:
+
+```{r}
+#| label: noDollarSign
+#| error: true
+species
+```
+
+
+We can also make "two-way" frequency tables (sometimes called "contingency tables") to summarize counts for two categorical variables:
+
+```{r}
+#| label: two-way-table
+table(penguins$species, penguins$island)
+```
+
+Data is **R**eally **C**ool, so the first variable you give to `table()` is in the **r**ows of the table, and the second is in the **c**olumns.
+
+
+## Bar Charts in R
+
+Let's explore our `penguins` data by making a plot that will help us visualize a categorical variable. We'll start by looking at the number of penguins observed of each species.
+
+```{r}
+#| label: species-plot
+barplot(table(penguins$species),
+     xlab = "Species",
+     ylab = "Frequency",
+     main = "Bar Chart of Number of Penguins of Each Species Observed",
+     col = c("darkorange1", "mediumorchid2", "darkcyan"))
+```
+
+Notice that we included the table from earlier in our code! This is how we will make a Bar Chart in R. Also notice that we included some arguments, such as `xlab`, the label on the x (or horizontal) axis, `ylab`, the label on the y (or vertical) axis, `main`, the title of the graph, and a nice way to add some fun to an otherwise boring plot - `col` for colors. We have three species of penguins, so we picked out three colors that we thought best represented each species. There are lots and lots of colors that you can try. We will show you more about colors next week!
+
+## Numerical Summaries
+
+Let's start with the `flipper_length_mm` variable. Is this a categorical or quantitative variable? How do you know?
+
+We can use R to summarize data numerically. We'll use the `summary()` function to do that for a given variable. Here, we'll summarize the `flipper_length_mm` variable, which is the length of the penguins' flippers (in millimeters). 
+
+```{r}
+#| label: flipperSummaries
+summary(penguins$flipper_length_mm)
+```
+
+You can always get just the one numerical summary you're looking for using the function for that specific summary:
+
+```{r}
+#| label: summaryFunctions
+#| error: true
+min(penguins$flipper_length_mm)
+mean(penguins$flipper_length_mm)
+median(penguins$flipper_length_mm)
+max(penguins$flipper_length_mm)
+sd(penguins$flipper_length_mm)
+IQR(penguins$flipper_length_mm)
+```
+
+## Boxplots in R
+
+One type of graphical display for a quantitative variable is a boxplot. The command for making a boxplot in R is pretty simple: it's just `boxplot()`. To make a boxplot of a single variable, just give R the name of the data set, a dollar sign ($), then the name of the variable. Also provide the arguments `main` and `ylab` for a plot title and y-axis label.
+
+```{r boxplot}
+boxplot(penguins$flipper_length_mm,
+        main = "Boxplot of Penguin Flipper Length",
+        ylab = "Flipper Length (mm)")
+```
+
+## Histograms in R
+
+Another type of graphical display for a quantitative variable is a histogram. Histograms in R are also pretty easy -- you just use the `hist()` function.
+
+```{r hist}
+hist(penguins$flipper_length_mm)
+```
+
+So here we've got a histogram. Notice that we didn't provide the `main`, `xlab`, and `ylab` arguments that we'd normally use for a plot title and an axis label, but R still gave us a title and labels. This is nice, but the labels are *horrible*: nobody (other than you) knows what `penguin$flipper_length_mm` means, so we don't want to use that as a title or axis label. The moral of the story is to *always provide `main`, `xlab`, and `ylab` arguments when making a plot!*
+
+Here's something better:
+
+```{r histLabels}
+hist(penguins$flipper_length_mm,
+     main = "Histogram of Penguin Flipper Length",
+     xlab = "Flipper Length (mm)")
+```

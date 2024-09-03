@@ -1,0 +1,127 @@
+---
+title: "BSTA 6100 Lab 0 Report"
+author: "Your Name"
+format:
+  html:
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    theme: lumen
+    css: assets/styles.css
+---
+
+**Collaborators:** If applicable, replace this text with the names of anyone you collaborated with on this project.
+
+# Instructions
+
+-   Complete the following exercises designed to help get you up and running in R and RStudio.
+-   Keep your answers inside the ".answer" blocks. Do NOT delete the three colon blocks (:::) and keep your responses between them.
+-   Use the tutorial for help, and feel free to email Nick or Haedi with questions.
+
+# Lab Assignment
+
+## Question 1
+
+::: question
+We're going to start by playing a bit with Quarto. Read carefully through the text below and apply formatting to it as follows:
+
+1.  Make the text "Tips and Tricks for Quarto" bold.
+2.  Make the text "Knit and knit often" italic.
+3.  Make the text "Make sure your chunk syntax is correct" italic.
+4.  Make the text "Be persistent!" bold.
+:::
+
+::: answer
+Tips and Tricks for Quarto
+
+1.  Knit and knit often. You'll be turning in  for grading, and it's important that you know what it looks like!
+2.  Make sure your chunk syntax is correct. You should only have one set of opening and closing backticks (\`\`\`) per chunk!
+3.  Be persistent! Learning R takes time, and it's okay if you don't get it right away. Just keep trying, and don't be afraid to ask for help!
+:::
+
+## Question 2
+
+::: question
+Use R as a calculator to compute the following values. Assign the first value the name `x`, the second value the name `y`, and the third `z`. $$\frac{27}{2 + 3^2}$$ $$\frac{1}{3} + \frac{1}{5} \times 0.257$$ $$92^3 - 734$$
+:::
+
+::: answer
+```{r question2, error = T}
+# Use this code chunk to write the code necessary to answer the question. Do not start your code on this line, and do not start your code with # (this is a comment, R will ignore it).
+
+```
+
+```{r question2Answers, error = T, collapse = T}
+# DO NOT EDIT THIS CHUNK: it's how we'll check your work. YOUR ANSWERS GO IN THE CHUNK ABOVE THIS ONE.
+x
+y
+z
+# DO NOT EDIT THIS CHUNK
+```
+:::
+
+
+## Question 3
+
+In Questions 3-5, we'll be using a data set we'll call `a2trees` that contains information about a subset of the top 9 types of trees planted around Ann Arbor, Michigan in 2009. The city maintains an interactive map of all such trees at [this link](https://gisappsecure.ewashtenaw.org/Html5Viewer_2_11/index.html?viewer=A2Trees.A2Trees).
+
+
+:::{.question}
+We'll start by reading in the data. The data are stored in a file called `a2trees_clean.csv`. We give the name of this file (*in quotes!*) to the `read.csv()` function. Complete this task in the chunk set up below by reading the .csv file and calling it `a2trees`.
+:::
+
+:::{.answer}
+```{r}
+#| label: question3
+#| error: true
+
+# Use this code chunk to write the code necessary to answer the question. Do not start your code on this line, and do not start your code with # (this is a comment, R will ignore it).
+
+```
+:::
+
+
+## Question 4
+
+:::{.question}
+Produce appropriate numerical summaries of the variable `ConditionTreeHealth`.
+:::
+
+:::{.answer}
+```{r question4, error = T}
+# Use this code chunk to write the code necessary to answer the question. Do not start your code on this line, and do not start your code with # (this is a comment, R will ignore it).
+
+```
+
+:::
+
+## Question 5
+
+:::{.question}
+Make an appropriate graphical display for the variable `ConditionTreeHealth`. Be sure to include a proper title and axis labels as appropriate.
+:::
+
+:::{.answer}
+```{r}
+#| label: question5
+#| error: true
+# Use this code chunk to write the code necessary to answer the question. Do not start your code on this line, and do not start your code with # (this is a comment, R will ignore it).
+
+```
+:::
+
+## Question 6
+
+:::{.question}
+Make a two-way contingency table for tree health and common genus.
+:::
+
+:::{.answer}
+```{r}
+#| label: question6
+#| error: true
+
+# Use this code chunk to write the code necessary to answer the question. Do not start your code on this line, and do not start your code with # (this is a comment, R will ignore it).
+
+```
+:::
